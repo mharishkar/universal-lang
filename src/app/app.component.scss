@@ -3138,3 +3138,10 @@ footer .hidden-md-up .legal-links div {
     border-right: none !important;
     border-radius: 0 !important;
 }
+
+p {
+    font-size: 12px;
+    line-height: 1.4;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
