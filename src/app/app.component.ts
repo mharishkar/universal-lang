@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { constanst } from 'src/assets/constant';
 
 @Component({
@@ -6,14 +6,28 @@ import { constanst } from 'src/assets/constant';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  title = 'universal-lang';
-  languageOption = constanst.languageOptions;
-  language = constanst.english;
+export class AppComponent implements OnInit {
+  
+  title: string = 'universal-lang';
+  languageOption: object = constanst.languageOptions;
+  language: object = constanst.english;
 
-  changeLanguage(event) {
-    switch(event.srcElement.value) {
-      case 'en-us':
+  ngOnInit() {
+    this.checkBrowserLanguage();
+  }
+
+  checkBrowserLanguage() {
+    const userLang = navigator.language;
+    this.changeLanguage(userLang);
+  }
+
+  getLanguage(event) {
+    this.changeLanguage(event.srcElement.value);
+  }
+  
+  changeLanguage(value) {
+    switch(value) {
+      case 'en-US':
           this.language = constanst.english;
           break;
       case 'es':
