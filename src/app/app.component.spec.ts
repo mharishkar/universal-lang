@@ -1,35 +1,54 @@
-import { TestBed, async } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { AppComponent } from './app.component';
-
+import { constanst } from 'src/assets/constant';
 describe('AppComponent', () => {
-  beforeEach(async(() => {
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
+  beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
-      declarations: [
-        AppComponent
-      ],
-    }).compileComponents();
-  }));
-
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
+      schemas: [NO_ERRORS_SCHEMA],
+      declarations: [AppComponent]
+    });
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
   });
-
-  it(`should have as title 'universal-lang'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('universal-lang');
+  it('can load instance', () => {
+    expect(component).toBeTruthy();
   });
-
-  it('should render title in a h1 tag', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to universal-lang!');
+  it('title defaults to: universal-lang', () => {
+    expect(component.title).toEqual('universal-lang');
+  });
+  it('languageOption defaults to: constanst.languageOptions', () => {
+    expect(component.languageOption).toEqual(constanst.languageOptions);
+  });
+  it('language defaults to: constanst.english', () => {
+    expect(component.language).toEqual(constanst.english);
+  });
+  describe('ngOnInit', () => {
+    it('makes expected calls', () => {
+      spyOn(component, 'checkBrowserLanguage').and.callThrough();
+      component.ngOnInit();
+      expect(component.checkBrowserLanguage).toHaveBeenCalled();
+    });
+  });
+  describe('checkBrowserLanguage', () => {
+    it('makes expected calls', () => {
+      spyOn(component, 'changeLanguage').and.callThrough();
+      component.checkBrowserLanguage();
+      expect(component.changeLanguage).toHaveBeenCalled();
+    });
+  });
+  describe('getLanguage', () => {
+    const event = {
+      srcElement : {
+        value : 'en-US'
+      }
+    }
+    it('makes expected calls', () => {
+      spyOn(component, 'changeLanguage').and.callThrough();
+      component.getLanguage(event);
+      expect(component.changeLanguage).toHaveBeenCalled();
+    });
   });
 });
