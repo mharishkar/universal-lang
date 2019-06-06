@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { constanst } from 'src/assets/constant';
+import { constanst } from './../assets/constant';
 
 @Component({
   selector: 'app-root',
