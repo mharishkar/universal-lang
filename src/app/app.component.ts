@@ -9,8 +9,8 @@ import { constanst } from 'src/assets/constant';
 export class AppComponent implements OnInit {
   
   title: string = 'universal-lang';
-  languageOption: object = constanst.languageOptions;
-  language: object = constanst.english;
+  languageOption = constanst.languageOptions;
+  language = constanst.english;
 
   ngOnInit() {
     this.checkBrowserLanguage();
